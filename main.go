@@ -2,7 +2,7 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-04 16:14:09
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-05 17:43:41
+ * @LastEditTime: 2025-04-05 18:31:42
  * @FilePath: /raycast2api/main.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
@@ -22,6 +22,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -35,7 +36,15 @@ const (
 	UserAgent        = "Raycast/1.94.3 (macOS Version 15.3.2 (Build 24D81))"
 	DefaultProvider  = "anthropic"
 	DefaultModel     = "claude-3-7-sonnet-latest"
+	ModelCacheTTL    = 6 * time.Hour // Cache models for 6 hours
 )
+
+// ModelCache represents the cache for models
+type ModelCache struct {
+	models    map[string]ModelCacheEntry
+	expiresAt time.Time
+	mutex     sync.RWMutex
+}
 
 // ModelCacheEntry stores information about a model
 type ModelCacheEntry struct {
@@ -141,6 +150,7 @@ type OpenAIModelResponse struct {
 type Config struct {
 	RaycastBearerToken string
 	APIKey             string
+	ModelCache         *ModelCache
 }
 
 // ErrorResponse represents an error response
@@ -152,11 +162,75 @@ type ErrorResponse struct {
 	} `json:"error"`
 }
 
-// fetchModels fetches model information from Raycast API
-func fetchModels(config Config) (map[string]ModelCacheEntry, error) {
+// NewModelCache creates a new model cache
+func NewModelCache() *ModelCache {
+	return &ModelCache{
+		models:    make(map[string]ModelCacheEntry),
+		expiresAt: time.Now(),
+		mutex:     sync.RWMutex{},
+	}
+}
+
+// GetModels gets models from cache or fetches them from Raycast API
+func (mc *ModelCache) GetModels(config Config) (map[string]ModelCacheEntry, error) {
+	mc.mutex.RLock()
+	if time.Now().Before(mc.expiresAt) && len(mc.models) > 0 {
+		defer mc.mutex.RUnlock()
+		log.Println("Using cached models")
+		return mc.models, nil
+	}
+	mc.mutex.RUnlock()
+
+	// Cache has expired or is empty, fetch new data
+	models, err := fetchModelsFromAPI(config)
+	if err != nil {
+		log.Printf("Error fetching models: %v, using defaults or cached data", err)
+		mc.mutex.RLock()
+		defer mc.mutex.RUnlock()
+
+		// If we have cached models, return them even if expired
+		if len(mc.models) > 0 {
+			log.Println("Using expired cached models as fallback")
+			return mc.models, nil
+		}
+
+		// If no cached models, create a default entry
+		defaultModels := map[string]ModelCacheEntry{
+			DefaultModel: {
+				Provider: DefaultProvider,
+				Model:    DefaultModel,
+			},
+		}
+		return defaultModels, err
+	}
+
+	// Update the cache with new data
+	mc.mutex.Lock()
+	defer mc.mutex.Unlock()
+	mc.models = models
+	mc.expiresAt = time.Now().Add(ModelCacheTTL)
+	log.Printf("Model cache updated with %d models, expires at %v", len(models), mc.expiresAt)
+
+	return models, nil
+}
+
+// ForceCacheRefresh forces a refresh of the model cache
+func (mc *ModelCache) ForceCacheRefresh(config Config) {
+	mc.mutex.Lock()
+	mc.expiresAt = time.Now() // Expire the cache
+	mc.mutex.Unlock()
+
+	// Trigger a refresh
+	_, _ = mc.GetModels(config)
+}
+
+// fetchModelsFromAPI fetches model information from Raycast API
+func fetchModelsFromAPI(config Config) (map[string]ModelCacheEntry, error) {
 	log.Println("Fetching models from Raycast API...")
 
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: 10 * time.Second, // Add timeout to prevent hanging requests
+	}
 	req, err := http.NewRequest("GET", RaycastModelsURL, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
@@ -366,16 +440,14 @@ func handleChatCompletions(c *gin.Context, config Config) {
 
 	stream := body.Stream
 
-	// Fetch models directly before each request
-	models, err := fetchModels(config)
+	// Get models from cache or fetch them if cache is expired
+	models, err := config.ModelCache.GetModels(config)
 	if err != nil {
-		log.Printf("Error fetching models: %v, using defaults", err)
-		models = make(map[string]ModelCacheEntry)
+		log.Printf("Warning: Using models with possible error: %v", err)
 	}
 
-	// Get provider info from the fetched models
+	// Get provider info from the models
 	provider, modelName := getProviderInfo(model, models)
-
 	log.Printf("Using provider: %s, model: %s", provider, modelName)
 
 	// Create a unique thread ID for this conversation
@@ -421,7 +493,9 @@ func handleChatCompletions(c *gin.Context, config Config) {
 
 	log.Printf("Sending request to Raycast: %s", string(requestBody))
 
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: 5 * time.Minute, // Longer timeout for chat completions
+	}
 	req, err := http.NewRequest("POST", RaycastAPIURL, bytes.NewBuffer(requestBody))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse{
@@ -722,8 +796,8 @@ func handleNonStreamingResponse(c *gin.Context, response *http.Response, modelId
 
 // handleModels handles models endpoint
 func handleModels(c *gin.Context, config Config) {
-	// Fetch models directly
-	models, err := fetchModels(config)
+	// Get models from cache or fetch them if cache is expired
+	models, err := config.ModelCache.GetModels(config)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse{
 			Error: struct {
@@ -788,16 +862,29 @@ func handleModels(c *gin.Context, config Config) {
 	c.Writer.Write(jsonData)
 }
 
+// handleRefreshModels handles manual refresh of the model cache
+func handleRefreshModels(c *gin.Context, config Config) {
+	config.ModelCache.ForceCacheRefresh(config)
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Model cache refreshed",
+	})
+}
+
 // Main function
 func main() {
 	// Configure logging
 	log.SetOutput(os.Stdout)
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
+	// Initialize model cache
+	modelCache := NewModelCache()
+
 	// Load configuration from environment variables
 	config := Config{
 		RaycastBearerToken: os.Getenv("RAYCAST_BEARER_TOKEN"),
 		APIKey:             os.Getenv("API_KEY"),
+		ModelCache:         modelCache,
 	}
 
 	// Log environment variables status
@@ -808,8 +895,10 @@ func main() {
 	if config.RaycastBearerToken == "" {
 		log.Fatal("Missing required environment variable: RAYCAST_BEARER_TOKEN")
 	}
+
 	// Set Release Mode
 	gin.SetMode(gin.ReleaseMode)
+
 	// Initialize Gin router
 	router := gin.Default()
 
@@ -860,6 +949,10 @@ func main() {
 
 	router.GET("/v1/models", func(c *gin.Context) {
 		handleModels(c, config)
+	})
+
+	router.GET("/v1/refresh-models", func(c *gin.Context) {
+		handleRefreshModels(c, config)
 	})
 
 	router.GET("/health", func(c *gin.Context) {
