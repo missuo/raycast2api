@@ -2,7 +2,7 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-04 16:14:09
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-05 14:12:28
+ * @LastEditTime: 2025-04-05 14:33:02
  * @FilePath: /raycast2api/main.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
@@ -256,7 +256,6 @@ func getProviderInfo(modelID string, models map[string]ModelCacheEntry) (string,
 	return DefaultProvider, DefaultModel
 }
 
-// convertMessages converts OpenAI messages format to Raycast format
 // convertMessages converts OpenAI messages format to Raycast format
 func convertMessages(openaiMessages []OpenAIMessage) []RaycastMessage {
 	raycastMessages := make([]RaycastMessage, len(openaiMessages))
@@ -698,7 +697,24 @@ func handleNonStreamingResponse(c *gin.Context, response *http.Response, modelId
 		SystemFingerprint: "fp_b376dfbbd5",
 	}
 
-	c.JSON(http.StatusOK, openaiResponse)
+	jsonData, err := json.MarshalIndent(openaiResponse, "", "  ")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
+			Error: struct {
+				Message string `json:"message"`
+				Type    string `json:"type"`
+				Details string `json:"details,omitempty"`
+			}{
+				Message: "Error formatting JSON response",
+				Type:    "server_error",
+				Details: err.Error(),
+			},
+		})
+		return
+	}
+	// Set content type and write the formatted JSON
+	c.Header("Content-Type", "application/json")
+	c.Writer.Write(jsonData)
 }
 
 // handleModels handles models endpoint
@@ -745,7 +761,24 @@ func handleModels(c *gin.Context, config Config) {
 		})
 	}
 
-	c.JSON(http.StatusOK, openaiModels)
+	jsonData, err := json.MarshalIndent(openaiModels, "", "  ")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, ErrorResponse{
+			Error: struct {
+				Message string `json:"message"`
+				Type    string `json:"type"`
+				Details string `json:"details,omitempty"`
+			}{
+				Message: "Error formatting JSON response",
+				Type:    "server_error",
+				Details: err.Error(),
+			},
+		})
+		return
+	}
+
+	c.Header("Content-Type", "application/json")
+	c.Writer.Write(jsonData)
 }
 
 // Main function
