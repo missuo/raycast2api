@@ -89,7 +89,7 @@ Unlike the previous version, this Go implementation works seamlessly with Cursor
 
 1. Use the generated endpoint (e.g., `http://localhost:8080/v1`)
 2. No additional configuration needed
-3. Select models directly from the available list
+3. Manually add the models you want to use to the `Models Name` section in Cursor
 
 ## Available Models
 
