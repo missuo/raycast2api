@@ -19,9 +19,3 @@ services:
       start_period: 10s
     volumes:
       - ./logs:/app/logs
-    networks:
-      - raycast_network
-
-networks:
-  raycast_network:
-    driver: bridge
