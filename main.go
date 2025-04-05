@@ -2,7 +2,7 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-04 16:14:09
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-05 14:33:02
+ * @LastEditTime: 2025-04-05 14:41:51
  * @FilePath: /raycast2api/main.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
@@ -712,6 +712,9 @@ func handleNonStreamingResponse(c *gin.Context, response *http.Response, modelId
 		})
 		return
 	}
+
+	// Add a newline to the end of the JSON data
+	jsonData = append(jsonData, '\n')
 	// Set content type and write the formatted JSON
 	c.Header("Content-Type", "application/json")
 	c.Writer.Write(jsonData)
@@ -777,6 +780,10 @@ func handleModels(c *gin.Context, config Config) {
 		return
 	}
 
+	// Add a newline to the end of the JSON data
+	jsonData = append(jsonData, '\n')
+
+	// Set content type and write the formatted JSON
 	c.Header("Content-Type", "application/json")
 	c.Writer.Write(jsonData)
 }
