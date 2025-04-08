@@ -95,43 +95,43 @@ Unlike the previous version, this Go implementation works seamlessly with Cursor
 
 | Model ID | Owner | Availability |
 |:---|:---|:---:|
-| gpt-4o-mini | OpenAI | ✅ |
-| llama-3.3-70b-versatile | Groq | ✅ |
-| llama3-70b-8192 | Groq | ✅ |
-| meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo | Together | ✅ |
-| ray1 | Raycast | ✅ |
-| gpt-4o | OpenAI | ✅ |
-| gemini-2.5-pro-preview-03-25 | Google | ❌ |
-| ray1-mini | Raycast | ✅ |
-| o1-2024-12-17 | OpenAI O1 | ❌ |
-| claude-3-5-sonnet-latest | Anthropic | ✅ |
-| sonar-pro | Perplexity | ✅ |
-| qwen-2.5-32b | Groq | ✅ |
-| gpt-4 | OpenAI | ✅ |
-| gpt-4-turbo | OpenAI | ✅ |
-| o1-mini | OpenAI O1 | ❌ |
-| llama-3.1-8b-instant | Groq | ✅ |
-| open-mistral-nemo | Mistral | ✅ |
-| mistral-large-latest | Mistral | ✅ |
-| mistral-small-latest | Mistral | ✅ |
-| claude-3-7-sonnet-latest | Anthropic | ✅ |
 | claude-3-5-haiku-latest | Anthropic | ✅ |
+| claude-3-5-sonnet-latest | Anthropic | ✅ |
+| claude-3-7-sonnet-latest | Anthropic | ✅ |
 | claude-3-opus-20240229 | Anthropic | ✅ |
-| meta-llama/llama-4-scout-17b-16e-instruct | Groq | ✅ |
+| codestral-latest | Mistral | ✅ |
+| deepseek-ai/DeepSeek-R1 | Together | ✅ |
+| deepseek-ai/DeepSeek-V3 | Together | ✅ |
+| deepseek-r1-distill-llama-70b | Groq | ✅ |
 | gemini-1.5-flash | Google | ✅ |
 | gemini-1.5-pro | Google | ✅ |
 | gemini-2.0-flash | Google | ✅ |
 | gemini-2.0-flash-thinking-exp-01-21 | Google | ✅ |
-| deepseek-ai/DeepSeek-R1 | Together | ✅ |
+| gemini-2.5-pro-preview-03-25 | Google | ❌ |
+| grok-2-latest | XAI | ✅ |
+| gpt-4 | OpenAI | ✅ |
+| gpt-4-turbo | OpenAI | ✅ |
+| gpt-4o | OpenAI | ✅ |
+| gpt-4o-mini | OpenAI | ✅ |
+| llama-3.1-8b-instant | Groq | ✅ |
+| llama-3.3-70b-versatile | Groq | ✅ |
+| llama3-70b-8192 | Groq | ✅ |
+| meta-llama/llama-4-scout-17b-16e-instruct | Groq | ✅ |
+| meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo | Together | ✅ |
+| mistral-large-latest | Mistral | ✅ |
+| mistral-small-latest | Mistral | ✅ |
+| o1-2024-12-17 | OpenAI O1 | ❌ |
+| o1-mini | OpenAI O1 | ❌ |
 | o1-preview | OpenAI O1 | ❌ |
-| codestral-latest | Mistral | ✅ |
 | o3-mini | OpenAI O1 | ✅ |
+| open-mistral-nemo | Mistral | ✅ |
+| qwen-2.5-32b | Groq | ✅ |
+| ray1 | Raycast | ✅ |
+| ray1-mini | Raycast | ✅ |
 | sonar | Perplexity | ✅ |
+| sonar-pro | Perplexity | ✅ |
 | sonar-reasoning | Perplexity | ✅ |
 | sonar-reasoning-pro | Perplexity | ✅ |
-| deepseek-ai/DeepSeek-V3 | Together | ✅ |
-| grok-2-latest | XAI | ✅ |
-| deepseek-r1-distill-llama-70b | Groq | ✅ |
 
 You can view the full list by calling the `/v1/models` endpoint.
 
