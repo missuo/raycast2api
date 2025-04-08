@@ -93,6 +93,8 @@ Unlike the previous version, this Go implementation works seamlessly with Cursor
 
 ## Available Models
 
+The following model list was updated on April 8, 2025, at 7:28 PM EDT.
+
 | Model ID | Owner | Availability |
 |:---|:---|:---:|
 | claude-3-5-haiku-latest | Anthropic | ✅ |
