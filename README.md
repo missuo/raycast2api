@@ -93,41 +93,45 @@ Unlike the previous version, this Go implementation works seamlessly with Cursor
 
 ## Available Models
 
-Here's a list of all the model IDs:
-
-- ray1
-- ray1-mini
-- gpt-4
-- gpt-4-turbo
-- gpt-4o
-- gpt-4o-mini
-- o1-preview
-- o1-mini
-- o1-2024-12-17
-- o3-mini
-- claude-3-5-haiku-latest
-- claude-3-5-sonnet-latest
-- claude-3-7-sonnet-latest
-- claude-3-opus-20240229
-- sonar
-- sonar-pro
-- sonar-reasoning
-- sonar-reasoning-pro
-- llama-3.3-70b-versatile
-- llama-3.1-8b-instant
-- llama3-70b-8192
-- meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo
-- open-mistral-nemo
-- mistral-large-latest
-- mistral-small-latest
-- codestral-latest
-- deepseek-r1-distill-llama-70b
-- gemini-1.5-flash
-- gemini-1.5-pro
-- gemini-2.0-flash
-- gemini-2.0-flash-thinking-exp-01-21
-- deepseek-ai/DeepSeek-R1
-- grok-2-latest
+| Model ID | Owner | Availability |
+|:---|:---|:---:|
+| gpt-4o-mini | OpenAI | ✅ |
+| llama-3.3-70b-versatile | Groq | ✅ |
+| llama3-70b-8192 | Groq | ✅ |
+| meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo | Together | ✅ |
+| ray1 | Raycast | ✅ |
+| gpt-4o | OpenAI | ✅ |
+| gemini-2.5-pro-preview-03-25 | Google | ❌ |
+| ray1-mini | Raycast | ✅ |
+| o1-2024-12-17 | OpenAI O1 | ❌ |
+| claude-3-5-sonnet-latest | Anthropic | ✅ |
+| sonar-pro | Perplexity | ✅ |
+| qwen-2.5-32b | Groq | ✅ |
+| gpt-4 | OpenAI | ✅ |
+| gpt-4-turbo | OpenAI | ✅ |
+| o1-mini | OpenAI O1 | ❌ |
+| llama-3.1-8b-instant | Groq | ✅ |
+| open-mistral-nemo | Mistral | ✅ |
+| mistral-large-latest | Mistral | ✅ |
+| mistral-small-latest | Mistral | ✅ |
+| claude-3-7-sonnet-latest | Anthropic | ✅ |
+| claude-3-5-haiku-latest | Anthropic | ✅ |
+| claude-3-opus-20240229 | Anthropic | ✅ |
+| meta-llama/llama-4-scout-17b-16e-instruct | Groq | ✅ |
+| gemini-1.5-flash | Google | ✅ |
+| gemini-1.5-pro | Google | ✅ |
+| gemini-2.0-flash | Google | ✅ |
+| gemini-2.0-flash-thinking-exp-01-21 | Google | ✅ |
+| deepseek-ai/DeepSeek-R1 | Together | ✅ |
+| o1-preview | OpenAI O1 | ❌ |
+| codestral-latest | Mistral | ✅ |
+| o3-mini | OpenAI O1 | ✅ |
+| sonar | Perplexity | ✅ |
+| sonar-reasoning | Perplexity | ✅ |
+| sonar-reasoning-pro | Perplexity | ✅ |
+| deepseek-ai/DeepSeek-V3 | Together | ✅ |
+| grok-2-latest | XAI | ✅ |
+| deepseek-r1-distill-llama-70b | Groq | ✅ |
 
 You can view the full list by calling the `/v1/models` endpoint.
 
