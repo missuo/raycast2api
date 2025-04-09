@@ -102,6 +102,7 @@ Some models in the following list still indicate that the model does not exist, 
 | claude-3-5-haiku-latest | Anthropic | ✅ |
 | claude-3-5-sonnet-latest | Anthropic | ✅ |
 | claude-3-7-sonnet-latest | Anthropic | ✅ |
+| claude-3-7-sonnet-latest-reasoning | Anthropic | ✅ |
 | claude-3-opus-20240229 | Anthropic | ✅ |
 | codestral-latest | Mistral | ✅ |
 | deepseek-ai/DeepSeek-R1 | Together | ✅ |
