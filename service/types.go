@@ -2,15 +2,15 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-08 22:43:56
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-08 22:44:08
- * @FilePath: /raycast2api/types.go
+ * @LastEditTime: 2025-04-09 15:44:44
+ * @FilePath: /raycast2api/service/types.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
  *
  * Copyright © 2025 by Vincent, All Rights Reserved.
  */
 
-package main
+package service
 
 // OpenAIMessage represents a message in OpenAI format
 type OpenAIMessage struct {

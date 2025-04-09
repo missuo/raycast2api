@@ -2,15 +2,15 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-08 22:43:35
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-08 22:43:47
- * @FilePath: /raycast2api/models.go
+ * @LastEditTime: 2025-04-09 15:51:13
+ * @FilePath: /raycast2api/service/models.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
  *
  * Copyright © 2025 by Vincent, All Rights Reserved.
  */
 
-package main
+package service
 
 import (
 	"encoding/json"
@@ -109,7 +109,7 @@ func fetchModelsFromAPI(config Config) (map[string]ModelCacheEntry, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("Raycast API error: %d %s", resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf("raycast api error: %d %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	bodyBytes, err := io.ReadAll(resp.Body)

@@ -10,7 +10,7 @@
  * Copyright © 2025 by Vincent, All Rights Reserved.
  */
 
-package main
+package service
 
 import (
 	"bytes"

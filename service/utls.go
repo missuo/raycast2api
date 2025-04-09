@@ -2,15 +2,15 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-08 22:44:55
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-08 22:45:46
- * @FilePath: /raycast2api/utls.go
+ * @LastEditTime: 2025-04-09 15:39:59
+ * @FilePath: /raycast2api/service/utls.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
  *
  * Copyright © 2025 by Vincent, All Rights Reserved.
  */
 
-package main
+package service
 
 import (
 	"bufio"

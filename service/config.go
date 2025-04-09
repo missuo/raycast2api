@@ -2,17 +2,19 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-08 22:43:16
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-08 22:43:30
- * @FilePath: /raycast2api/config.go
+ * @LastEditTime: 2025-04-09 15:56:31
+ * @FilePath: /raycast2api/service/config.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
  *
  * Copyright © 2025 by Vincent, All Rights Reserved.
  */
 
-package main
+package service
 
 import (
+	"log"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -35,6 +37,7 @@ type Config struct {
 	RaycastBearerToken string
 	APIKey             string
 	ModelCache         *ModelCache
+	Port               string
 }
 
 // ErrorResponse represents an error response
@@ -95,4 +98,33 @@ func getRaycastHeaders(config Config) map[string]string {
 		"Content-Type":    "application/json",
 		"Connection":      "close",
 	}
+}
+
+// InitConfig initializes the configuration
+func InitConfig() *Config {
+	// Initialize model cache
+	modelCache := NewModelCache()
+
+	// Load configuration from environment variables
+	config := &Config{
+		RaycastBearerToken: os.Getenv("RAYCAST_BEARER_TOKEN"),
+		APIKey:             os.Getenv("API_KEY"),
+		ModelCache:         modelCache,
+		Port:               os.Getenv("PORT"),
+	}
+
+	// Log environment variable status
+	log.Printf("RAYCAST_BEARER_TOKEN: %s", map[bool]string{true: "Set", false: "Not set"}[config.RaycastBearerToken != ""])
+	log.Printf("API_KEY: %s", map[bool]string{true: "Set", false: "Not set"}[config.APIKey != ""])
+
+	// Validate required environment variables
+	if config.RaycastBearerToken == "" {
+		log.Fatal("Missing required environment variable: RAYCAST_BEARER_TOKEN")
+	}
+
+	if config.Port == "" {
+		config.Port = "8080"
+	}
+
+	return config
 }
