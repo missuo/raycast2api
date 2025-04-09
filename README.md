@@ -44,7 +44,7 @@ go mod tidy
 go build
 
 # Run the application
-./raycast-relay
+./raycast2api
 ```
 
 ### Docker Deployment
