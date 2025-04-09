@@ -2,7 +2,7 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-09 15:40:07
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-09 15:52:31
+ * @LastEditTime: 2025-04-09 16:16:38
  * @FilePath: /raycast2api/service/router.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
@@ -64,19 +64,19 @@ func setupMiddlewares(router *gin.Engine, config Config) {
 }
 
 // setupRoutes configures all routes for the application
-func Router(config Config) *gin.Engine {
+func Router(config *Config) *gin.Engine {
 	router := gin.Default()
-	setupMiddlewares(router, config)
+	setupMiddlewares(router, *config) // Dereference when passing to setupMiddlewares
 	router.POST("/v1/chat/completions", func(c *gin.Context) {
-		handleChatCompletions(c, config)
+		handleChatCompletions(c, *config) // Dereference when passing to handlers
 	})
 
 	router.GET("/v1/models", func(c *gin.Context) {
-		handleModels(c, config)
+		handleModels(c, *config) // Dereference when passing to handlers
 	})
 
 	router.GET("/v1/refresh-models", func(c *gin.Context) {
-		handleRefreshModels(c, config)
+		handleRefreshModels(c, *config) // Dereference when passing to handlers
 	})
 
 	router.GET("/health", func(c *gin.Context) {
