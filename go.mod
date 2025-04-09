@@ -1,6 +1,6 @@
 module github.com/missuo/raycast2api
 
-go 1.24.2
+go 1.23.0
 
 require (
 	github.com/gin-gonic/gin v1.10.0
