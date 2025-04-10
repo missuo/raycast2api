@@ -34,6 +34,18 @@ export API_KEY=your_optional_api_key
 export PORT=8080
 ```
 
+- **RAYCAST_BEARER_TOKEN**: You need to intercept the request sent by Raycast with an Authorization header. You can obtain it by intercepting Raycast app traffic using Proxyman. 
+
+```
+I. Open Proxyman, then open Raycast and type any query like 'hello'.
+
+II. In Proxyman, find any request sent by Raycast with an Authorization header.
+
+III. The token is the part after 'Bearer ', e.g., 'Bearer xxxxxxxxxxxxx', where 'xxxxxxxxxxxxx' is your `RAYCAST_BEARER_TOKEN`.
+```
+
+- **API_KEY**: It is used for authentication in this project to prevent unauthorized access or abuse. You can define it to be anything you want, e.g., `sk-1234567890`.
+
 3. Build and run the application:
 
 ```bash
