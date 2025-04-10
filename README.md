@@ -32,6 +32,13 @@ export API_KEY=your_optional_api_key
 
 # Optional: Set custom port (default is 8080)
 export PORT=8080
+# RAYCAST_BEARER_TOKEN can be obtained by intercepting Raycast app traffic using Proxyman.
+# Open Proxyman, then open Raycast and type any query like 'hello'.
+# In Proxyman, find any request sent by Raycast with an Authorization header.
+# The token is the part after 'Bearer ', e.g., 'Bearer xxxxxxxxxxxxx', where 'xxxxxxxxxxxxx' is your RAYCAST_BEARER_TOKEN.
+
+# API_KEY is a custom secret key you define yourself.
+# It is used for authentication in this project to prevent unauthorized access or abuse.
 ```
 
 3. Build and run the application:
