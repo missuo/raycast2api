@@ -114,6 +114,8 @@ Some models in the following list still indicate that the model does not exist, 
 | gemini-2.0-flash-thinking-exp-01-21 | Google | ✅ |
 | gemini-2.5-pro-preview-03-25 | Google | ❌ |
 | grok-2-latest | XAI | ✅ |
+| grok-3-fast-beta | XAI | ❌ |
+| grok-3-mini-fast-beta | XAI | ✅ |
 | gpt-4 | OpenAI | ✅ |
 | gpt-4-turbo | OpenAI | ✅ |
 | gpt-4o | OpenAI | ✅ |
