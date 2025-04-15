@@ -2,7 +2,7 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-08 22:43:16
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-10 14:47:57
+ * @LastEditTime: 2025-04-14 23:41:42
  * @FilePath: /raycast2api/service/config.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
@@ -26,7 +26,7 @@ import (
 const (
 	RaycastAPIURL    = "https://backend.raycast.com/api/v1/ai/chat_completions"
 	RaycastModelsURL = "https://backend.raycast.com/api/v1/ai/models"
-	UserAgent        = "Raycast/1.95.0 (macOS Version 15.4.0 (Build 24E248))"
+	UserAgent        = "Raycast/1.95.0 (macOS Version 15.5 (Build 24F5053f))"
 	DefaultProvider  = "anthropic"
 	DefaultModel     = "claude-3-7-sonnet-latest"
 	ModelCacheTTL    = 6 * time.Hour // Cache models for 6 hours
