@@ -93,7 +93,7 @@ Unlike the previous version, this Go implementation works seamlessly with Cursor
 
 ## Available Models
 
-The following model list was updated on April 12, 2025, at 8:14 AM EDT. 
+The following model list was updated on April 16, 2025, at 9:21 AM EDT. 
 
 Some models in the following list still indicate that the model does not exist, even when sending the exact same request as the Raycast App. We suspect that the server has implemented authentication for the signature.
 
