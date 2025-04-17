@@ -118,6 +118,9 @@ Some models in the following list still indicate that the model does not exist, 
 | grok-3-mini-fast-beta | XAI | ✅ |
 | gpt-4 | OpenAI | ✅ |
 | gpt-4-turbo | OpenAI | ✅ |
+| gpt-4.1 | OpenAI | ✅ |
+| gpt-4.1-nano | OpenAI | ✅ |
+| gpt-4.1-mini | OpenAI | ✅ |
 | gpt-4o | OpenAI | ✅ |
 | gpt-4o-mini | OpenAI | ✅ |
 | llama-3.1-8b-instant | Groq | ✅ |
