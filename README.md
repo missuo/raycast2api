@@ -133,7 +133,9 @@ Some models in the following list still indicate that the model does not exist, 
 | o1-2024-12-17 | OpenAI O1 | ❌ |
 | o1-mini | OpenAI O1 | ❌ |
 | o1-preview | OpenAI O1 | ❌ |
+| o3 | OpenAI O1 | ❌ |
 | o3-mini | OpenAI O1 | ✅ |
+| o4-mini | OpenAI O1 | ✅|
 | open-mistral-nemo | Mistral | ✅ |
 | qwen-2.5-32b | Groq | ✅ |
 | ray1 | Raycast | ✅ |
