@@ -1,8 +1,6 @@
 services:
   raycast2api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/missuo/raycast2api:latest
     container_name: raycast2api
     restart: unless-stopped
     ports:
