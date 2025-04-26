@@ -2,8 +2,8 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-08 22:44:31
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-08 22:44:41
- * @FilePath: /raycast2api/handlers.go
+ * @LastEditTime: 2025-04-26 17:21:21
+ * @FilePath: /raycast2api/service/handlers.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
  *
@@ -19,6 +19,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"sort"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -217,19 +218,16 @@ func handleModels(c *gin.Context, config Config) {
 		return
 	}
 
-	// Convert models to OpenAI format
-	openaiModels := OpenAIModelResponse{
-		Object: "list",
-		Data: make([]struct {
-			ID      string `json:"id"`
-			Object  string `json:"object"`
-			Created int64  `json:"created"`
-			OwnedBy string `json:"owned_by"`
-		}, 0, len(models)),
+	// Convert models to a slice that can be sorted
+	var modelSlice []struct {
+		ID      string `json:"id"`
+		Object  string `json:"object"`
+		Created int64  `json:"created"`
+		OwnedBy string `json:"owned_by"`
 	}
 
 	for _, info := range models {
-		openaiModels.Data = append(openaiModels.Data, struct {
+		modelSlice = append(modelSlice, struct {
 			ID      string `json:"id"`
 			Object  string `json:"object"`
 			Created int64  `json:"created"`
@@ -240,6 +238,17 @@ func handleModels(c *gin.Context, config Config) {
 			Created: time.Now().Unix(),
 			OwnedBy: info.Provider,
 		})
+	}
+
+	// Sort by ID
+	sort.Slice(modelSlice, func(i, j int) bool {
+		return modelSlice[i].ID < modelSlice[j].ID
+	})
+
+	// Create OpenAI format response
+	openaiModels := OpenAIModelResponse{
+		Object: "list",
+		Data:   modelSlice,
 	}
 
 	jsonData, err := json.MarshalIndent(openaiModels, "", "  ")
@@ -258,10 +267,10 @@ func handleModels(c *gin.Context, config Config) {
 		return
 	}
 
-	// Add a newline to the end of the JSON data
+	// Add newline to the end of JSON data
 	jsonData = append(jsonData, '\n')
 
-	// Set content type and write the formatted JSON
+	// Set content type and write formatted JSON
 	c.Header("Content-Type", "application/json")
 	c.Writer.Write(jsonData)
 }

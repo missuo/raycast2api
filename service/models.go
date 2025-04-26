@@ -2,7 +2,7 @@
  * @Author: Vincent Yang
  * @Date: 2025-04-08 22:43:35
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2025-04-09 15:51:13
+ * @LastEditTime: 2025-04-26 17:21:02
  * @FilePath: /raycast2api/service/models.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
@@ -90,7 +90,7 @@ func fetchModelsFromAPI(config Config) (map[string]ModelCacheEntry, error) {
 	log.Println("Fetching models from Raycast API...")
 
 	client := &http.Client{
-		Timeout: 10 * time.Second, // Add timeout to prevent hanging requests
+		Timeout: 10 * time.Second,
 	}
 	req, err := http.NewRequest("GET", RaycastModelsURL, nil)
 	if err != nil {
