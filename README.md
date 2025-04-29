@@ -50,12 +50,18 @@ go build
 ### Docker Deployment
 
 ```bash
-# Clone the repository
-git clone https://github.com/missuo/raycast2api
+# Create a directory for the Docker Compose file
+mkdir raycast2api
 cd raycast2api
 
+# Download the Docker Compose file
+wget -O compose.yaml https://raw.githubusercontent.com/missuo/raycast2api/refs/heads/main/compose.yaml
+
+# Edit the compose.yaml file
+nano compose.yaml
+
 # Run Docker container
-docker compose up -d --build
+docker compose up -d
 ```
 
 ## Usage
