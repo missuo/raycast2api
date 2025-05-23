@@ -103,54 +103,56 @@ The following model list was updated on April 26, 2025, at 05:29 PM EDT.
 
 Some models in the following list still indicate that the model does not exist, even when sending the exact same request as the Raycast App. We suspect that the server has implemented authentication for the signature.
 
-| Model ID | Owner | Availability |
-|:---|:---|:---:|
-| claude-3-5-haiku-latest | Anthropic | ✅ |
-| claude-3-5-sonnet-latest | Anthropic | ✅ |
-| claude-3-7-sonnet-latest | Anthropic | ✅ |
-| claude-3-7-sonnet-latest-reasoning | Anthropic | ✅ |
-| claude-3-opus-20240229 | Anthropic | ✅ |
-| codestral-latest | Mistral | ✅ |
-| deepseek-ai/DeepSeek-R1 | Together | ✅ |
-| deepseek-ai/DeepSeek-V3 | Together | ✅ |
-| deepseek-r1-distill-llama-70b | Groq | ✅ |
-| gemini-1.5-flash | Google | ✅ |
-| gemini-1.5-pro | Google | ✅ |
-| gemini-2.0-flash | Google | ✅ |
-| gemini-2.0-flash-thinking-exp-01-21 | Google | ✅ |
-| gemini-2.5-flash-preview-04-17 | Google | ✅ |
-| gemini-2.5-pro-preview-03-25 | Google | ❌ |
-| grok-2-latest | XAI | ✅ |
-| grok-3-fast-beta | XAI | ❌ |
-| grok-3-mini-fast-beta | XAI | ✅ |
-| gpt-4 | OpenAI | ✅ |
-| gpt-4-turbo | OpenAI | ✅ |
-| gpt-4.1 | OpenAI | ✅ |
-| gpt-4.1-nano | OpenAI | ✅ |
-| gpt-4.1-mini | OpenAI | ✅ |
-| gpt-4o | OpenAI | ✅ |
-| gpt-4o-mini | OpenAI | ✅ |
-| llama-3.1-8b-instant | Groq | ✅ |
-| llama-3.3-70b-versatile | Groq | ✅ |
-| llama3-70b-8192 | Groq | ✅ |
-| meta-llama/llama-4-scout-17b-16e-instruct | Groq | ✅ |
-| meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo | Together | ✅ |
-| mistral-large-latest | Mistral | ✅ |
-| mistral-small-latest | Mistral | ✅ |
-| o1-2024-12-17 | OpenAI O1 | ❌ |
-| o1-mini | OpenAI O1 | ❌ |
-| o1-preview | OpenAI O1 | ❌ |
-| o3 | OpenAI O1 | ❌ |
-| o3-mini | OpenAI O1 | ✅ |
-| o4-mini | OpenAI O1 | ✅ |
-| open-mistral-nemo | Mistral | ✅ |
-| qwen-2.5-32b | Groq | ✅ |
-| ray1 | Raycast | ✅ |
-| ray1-mini | Raycast | ✅ |
-| sonar | Perplexity | ✅ |
-| sonar-pro | Perplexity | ✅ |
-| sonar-reasoning | Perplexity | ✅ |
-| sonar-reasoning-pro | Perplexity | ✅ |
+| Model ID                                 | Owner      | Availability |
+| :--------------------------------------- | :--------- | :----------: |
+| claude-3-5-haiku-latest                  | Anthropic  |      ✅      |
+| claude-3-5-sonnet-latest                 | Anthropic  |      ✅      |
+| claude-3-7-sonnet-latest                 | Anthropic  |      ✅      |
+| claude-3-7-sonnet-latest-reasoning       | Anthropic  |      ✅      |
+| claude-3-opus-20240229                   | Anthropic  |      ✅      |
+| claude-opus-4-20250514                   | Anthropic  |      ✅      |
+| claude-sonnet-4-20250514                 | Anthropic  |      ✅      |
+| claude-sonnet-4-20250514-reasoning       | Anthropic  |      ✅      |
+| codestral-latest                         | Mistral    |      ✅      |
+| deepseek-ai/DeepSeek-R1                  | Together   |      ✅      |
+| deepseek-ai/DeepSeek-V3                  | Together   |      ✅      |
+| deepseek-r1-distill-llama-70b            | Groq       |      ✅      |
+| gemini-1.5-flash                         | Google     |      ✅      |
+| gemini-1.5-pro                           | Google     |      ✅      |
+| gemini-2.0-flash                         | Google     |      ✅      |
+| gemini-2.0-flash-thinking-exp-01-21      | Google     |      ✅      |
+| gemini-2.5-flash-preview-04-17           | Google     |      ✅      |
+| gemini-2.5-pro-preview-03-25             | Google     |      ❌      |
+| gpt-4                                    | OpenAI     |      ✅      |
+| gpt-4-turbo                              | OpenAI     |      ✅      |
+| gpt-4.1                                  | OpenAI     |      ✅      |
+| gpt-4.1-mini                             | OpenAI     |      ✅      |
+| gpt-4.1-nano                             | OpenAI     |      ✅      |
+| gpt-4o                                   | OpenAI     |      ✅      |
+| gpt-4o-mini                              | OpenAI     |      ✅      |
+| grok-2-latest                            | XAI        |      ✅      |
+| grok-3-fast-beta                         | XAI        |      ❌      |
+| grok-3-mini-fast-beta                    | XAI        |      ✅      |
+| llama-3.1-8b-instant                     | Groq       |      ✅      |
+| llama-3.3-70b-versatile                  | Groq       |      ✅      |
+| llama3-70b-8192                          | Groq       |      ✅      |
+| meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo | Together   |      ✅      |
+| meta-llama/llama-4-scout-17b-16e-instruct | Groq       |      ✅      |
+| mistral-large-latest                     | Mistral    |      ✅      |
+| mistral-small-latest                     | Mistral    |      ✅      |
+| o1-2024-12-17                            | OpenAI O1  |      ❌      |
+| o1-mini                                  | OpenAI O1  |      ❌      |
+| o1-preview                               | OpenAI O1  |      ❌      |
+| o3                                       | OpenAI O1  |      ❌      |
+| o3-mini                                  | OpenAI O1  |      ✅      |
+| o4-mini                                  | OpenAI O1  |      ✅      |
+| open-mistral-nemo                        | Mistral    |      ✅      |
+| ray1                                     | Raycast    |      ✅      |
+| ray1-mini                                | Raycast    |      ✅      |
+| sonar                                    | Perplexity |      ✅      |
+| sonar-pro                                | Perplexity |      ✅      |
+| sonar-reasoning                          | Perplexity |      ✅      |
+| sonar-reasoning-pro                      | Perplexity |      ✅      |
 
 You can view the full list by calling the `/v1/models` endpoint.
 
