@@ -122,7 +122,7 @@ Some models in the following list still indicate that the model does not exist, 
 | gemini-2.0-flash | Google | ✅ |
 | gemini-2.0-flash-thinking-exp-01-21 | Google | ✅ |
 | gemini-2.5-flash-preview-04-17 | Google | ✅ |
-| gemini-2.5-pro-preview-03-25 | Google | ✅ |
+| gemini-2.5-pro-preview-06-05 | Google | ✅ |
 | gpt-4 | OpenAI | ✅ |
 | gpt-4-turbo | OpenAI | ✅ |
 | gpt-4.1 | OpenAI | ✅ |
