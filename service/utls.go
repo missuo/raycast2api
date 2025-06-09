@@ -26,42 +26,79 @@ import (
 	"github.com/google/uuid"
 )
 
-// convertMessages converts OpenAI messages format to Raycast format
-func convertMessages(openaiMessages []OpenAIMessage) []RaycastMessage {
-	raycastMessages := make([]RaycastMessage, len(openaiMessages))
-	for i, msg := range openaiMessages {
-		author := "user"
-		if msg.Role == "assistant" {
-			author = "assistant"
-		}
+// ConvertMessagesResult represents the result of converting OpenAI messages
+type ConvertMessagesResult struct {
+	RaycastMessages   []RaycastMessage
+	SystemInstruction string
+}
 
-		var contentText string
-		switch content := msg.Content.(type) {
-		case string:
-			contentText = content
-		case []interface{}:
-			// Handle array content (extract text parts)
-			for _, part := range content {
-				if partMap, ok := part.(map[string]interface{}); ok {
-					if partMap["type"] == "text" {
-						if textValue, ok := partMap["text"].(string); ok {
-							contentText += textValue
+// convertMessages converts OpenAI messages format to Raycast format and extracts system instruction
+func convertMessages(openaiMessages []OpenAIMessage) ConvertMessagesResult {
+	systemInstruction := "markdown" // Default
+	var raycastMessages []RaycastMessage
+
+	for i, msg := range openaiMessages {
+		if msg.Role == "system" && i == 0 {
+			// Extract the first system message as system instruction
+			switch content := msg.Content.(type) {
+			case string:
+				systemInstruction = content
+			case []interface{}:
+				// Handle array content (extract text parts)
+				var contentText string
+				for _, part := range content {
+					if partMap, ok := part.(map[string]interface{}); ok {
+						if partMap["type"] == "text" {
+							if textValue, ok := partMap["text"].(string); ok {
+								contentText += textValue
+							}
+						}
+					}
+				}
+				if contentText != "" {
+					systemInstruction = contentText
+				}
+			}
+		} else if msg.Role == "user" || msg.Role == "assistant" {
+			// Only include user and assistant messages in the messages array
+			author := "user"
+			if msg.Role == "assistant" {
+				author = "assistant"
+			}
+
+			var contentText string
+			switch content := msg.Content.(type) {
+			case string:
+				contentText = content
+			case []interface{}:
+				// Handle array content (extract text parts)
+				for _, part := range content {
+					if partMap, ok := part.(map[string]interface{}); ok {
+						if partMap["type"] == "text" {
+							if textValue, ok := partMap["text"].(string); ok {
+								contentText += textValue
+							}
 						}
 					}
 				}
 			}
-		}
 
-		raycastMessages[i] = RaycastMessage{
-			Author: author,
-			Content: struct {
-				Text string `json:"text"`
-			}{
-				Text: contentText,
-			},
+			raycastMessages = append(raycastMessages, RaycastMessage{
+				Author: author,
+				Content: struct {
+					Text string `json:"text"`
+				}{
+					Text: contentText,
+				},
+			})
 		}
+		// Ignore other roles or subsequent system messages
 	}
-	return raycastMessages
+
+	return ConvertMessagesResult{
+		RaycastMessages:   raycastMessages,
+		SystemInstruction: systemInstruction,
+	}
 }
 
 // parseSSEResponse parses SSE response from Raycast into a single text

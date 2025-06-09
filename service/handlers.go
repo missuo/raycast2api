@@ -85,16 +85,19 @@ func handleChatCompletions(c *gin.Context, config Config) {
 	// Create a unique thread ID for this conversation
 	threadId := uuid.New().String()
 
+	// Convert messages and extract system instruction
+	messageResult := convertMessages(body.Messages)
+
 	// Prepare Raycast request
 	raycastRequest := RaycastChatRequest{
 		AdditionalSystemInstructions: "",
 		Debug:                        false,
 		Locale:                       "en-US",
-		Messages:                     convertMessages(body.Messages),
+		Messages:                     messageResult.RaycastMessages,
 		Model:                        modelName,
 		Provider:                     provider,
 		Source:                       "ai_chat",
-		SystemInstruction:            "markdown",
+		SystemInstruction:            messageResult.SystemInstruction,
 		Temperature:                  temperature,
 		ThreadID:                     threadId,
 		Tools: []struct {
